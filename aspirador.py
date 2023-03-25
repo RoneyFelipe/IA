@@ -10,7 +10,10 @@ class No :
         def expandeEsq (self, noNavegacao):
              novoNo = No(1)
              novoNo.pai = noNavegacao
+             
              noNavegacao.esq = novoNo
+             novoNo.salaA = noNavegacao.salaA
+             novoNo.salaB = noNavegacao.salaB
              
              return novoNo
 
@@ -18,11 +21,15 @@ class No :
              novoNo = No(2)
              novoNo.pai = noNavegacao
              noNavegacao.dir = novoNo
+             novoNo.salaA = noNavegacao.salaA
+             novoNo.salaB = noNavegacao.salaB
              
              return novoNo
 
         def expandeLimpar(self, noNavegacao):
              novoNo = No(noNavegacao.posicaoRobo)
+             novoNo.salaA = noNavegacao.salaA
+             novoNo.salaB = noNavegacao.salaB
              if noNavegacao.posicaoRobo == 1:
                   novoNo.salaA = "S"
 
@@ -48,8 +55,6 @@ def verificaObjetivo(noNavegacao):
         else:
             return 1
 
-     
-     
 def expansao(fronteira, noNavegacao):
      
      if noNavegacao.posicaoRobo == 0:
@@ -58,18 +63,17 @@ def expansao(fronteira, noNavegacao):
           print("ENtrei")
     
      else: 
-        
 
         if noNavegacao.posicaoRobo == 1:
             fronteira.append(noNavegacao.expandeDir(noNavegacao))
 
-            if noNavegacao.salaA == "N":
+            if noNavegacao.salaA != "S":
                 fronteira.append(noNavegacao.expandeLimpar(noNavegacao))
             
         elif noNavegacao.posicaoRobo == 2:
             fronteira.append(noNavegacao.expandeEsq(noNavegacao))
 
-            if noNavegacao.salaB == "N":
+            if noNavegacao.salaB != "S":
                 fronteira.append(noNavegacao.expandeLimpar(noNavegacao))
 
 
@@ -98,10 +102,7 @@ def buscaLargura(noInicial, caminhoPercorridoLargura):
 
           print(posicao)
           posicao = posicao + 1
-          
-
-          
-     
+               
 
 def main():
      caminhoPercorridoLargura = []
