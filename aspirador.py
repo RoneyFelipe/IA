@@ -7,40 +7,44 @@ class No :
             self.salaA = "N"
             self.salaB = "N"
               
-        def expandeEsq (self, noAtual):
+        def expandeEsq (self, noNavegacao):
              novoNo = No(1)
-             novoNo.pai = noAtual
-             noAtual.esq = novoNo
+             novoNo.pai = noNavegacao
+             noNavegacao.esq = novoNo
              
              return novoNo
 
-        def expandeDir(self,noAtual):
+        def expandeDir(self, noNavegacao):
              novoNo = No(2)
-             novoNo.pai = noAtual
-             noAtual.dir = novoNo
+             novoNo.pai = noNavegacao
+             noNavegacao.dir = novoNo
              
              return novoNo
 
-        def expandeLimpar(self, noAtual):
-             novoNo = No(noAtual.posicaoRobo)
-             if noAtual.posicaoRobo == 1:
+        def expandeLimpar(self, noNavegacao):
+             novoNo = No(noNavegacao.posicaoRobo)
+             if noNavegacao.posicaoRobo == 1:
                   novoNo.salaA = "S"
 
-             elif noAtual.posicaoRobo == 2:
+             elif noNavegacao.posicaoRobo == 2:
                   novoNo.salaB = "S"
             
              return novoNo
         
 
 
-def verificaObjetivo(noAtual):
+def verificaObjetivo(noNavegacao):
         
         print("-------------Verificando----------")
-        print(noAtual.posicaoRobo, noAtual.salaA, noAtual.salaB)
-        if noAtual.salaA == "S" and noAtual.salaB == "S":
+
+        print(noNavegacao.posicaoRobo, noNavegacao.salaA, noNavegacao.salaB)
+
+        if noNavegacao.salaA == "S" and noNavegacao.salaB == "S":
+            
             print("Programa Encerrado, salas limpas")
             print("---------------------------------------")
             return 0
+        
         else:
             return 1
 
@@ -71,11 +75,11 @@ def expansao(fronteira, noNavegacao):
 
     
      
-def buscaLargura(noAtual, caminhoPercorridoLargura):
+def buscaLargura(noInicial, caminhoPercorridoLargura):
 
      fronteira = []
-     fronteira.append(noAtual)
-     noNavegacao = noAtual
+     fronteira.append(noInicial)
+     noNavegacao = noInicial
      posicao = 0
      
 
@@ -86,10 +90,12 @@ def buscaLargura(noAtual, caminhoPercorridoLargura):
           expansao(fronteira, noNavegacao)
 
           del(fronteira[0])
+
           print("Iteração")
           print("Tamanho:", len(fronteira))
 
           noNavegacao = fronteira[0]
+
           print(posicao)
           posicao = posicao + 1
           
